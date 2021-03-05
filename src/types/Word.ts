@@ -53,4 +53,15 @@ export type Word = {
    * 発音
    */
   pronunciation?: string
+
+  /**
+   * 形態素種類
+   * %s 形態素種類 (0: 通常, 1: 未知語, 2:文頭, 3:文末)
+   */
+  type?: string
+
+  /**
+   * %c 単語生起コスト
+   */
+  cost?: number
 }
