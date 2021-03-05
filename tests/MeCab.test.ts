@@ -2,7 +2,7 @@ import { MeCab } from '../src/classes/MeCab'
 
 describe('MeCab class test.', () => {
   test('should parse', async (done) => {
-    const mecab = new MeCab()
+    const mecab = new MeCab('')
     const source = 'これはねこさんです。'
 
     const result = await mecab.parse(source)

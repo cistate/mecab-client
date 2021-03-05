@@ -7,7 +7,15 @@ import { Word } from '../types'
  * MeCab class.
  */
 export class MeCab implements IMeCab {
-  readonly command: string = 'mecab'
+  command = 'mecab'
+
+  constructor(dictPath = '') {
+    if (dictPath) {
+      this.command = `mecab -d "${dictPath}" -F%M\\\\t%H,%s,%c\\\\n`
+    } else {
+      this.command = `mecab -F%M\\\\t%H,%s,%c\\\\n`
+    }
+  }
 
   async parse(source: string): Promise<Word[]> {
     const output = await this.executeMeCabCommand(source)
@@ -34,6 +42,23 @@ export class MeCab implements IMeCab {
 
       const data = dataString.split(',')
 
+      const parseType = (_type) => {
+        const type = parseInt(_type)
+
+        switch (type) {
+          case 0:
+            return '通常'
+          case 1:
+            return '未知語'
+          case 2:
+            return '文頭'
+          case 3:
+            return '文末'
+          default:
+            return _type
+        }
+      }
+
       words.push({
         surface,
         lexical: data[0],
@@ -45,6 +70,8 @@ export class MeCab implements IMeCab {
         original: data[6],
         reading: data[7],
         pronunciation: data[8],
+        type: parseType(data[9]),
+        cost: parseInt(data[10]),
       })
     }
 
