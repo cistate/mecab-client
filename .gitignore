@@ -8,3 +8,4 @@ coverage
 # Builds
 /lib
 /types
+/workspace.code-workspace
