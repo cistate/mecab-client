@@ -59,19 +59,32 @@ export class MeCab implements IMeCab {
         }
       }
 
+      if (surface.startsWith(' ')) {
+        words.push({
+          surface: '◌',
+          pos: '記号,空白',
+          conjugation: '',
+          inflection: '',
+          original: '',
+          reading: '',
+          pronunciation: '',
+          type: '',
+          cost: '',
+          category: '',
+        })
+      }
+
       words.push({
-        surface,
-        lexical: data[0],
-        compound1: data[1],
-        compound2: data[2],
-        compound3: data[3],
+        surface: surface.replace(/^ +/, ''),
+        pos: [data[0], data[1], data[2], data[3]].join(',').replace(/,\*/g, ''),
         conjugation: data[4],
         inflection: data[5],
         original: data[6],
         reading: data[7],
         pronunciation: data[8],
         type: parseType(data[9]),
-        cost: parseInt(data[10]),
+        cost: data[10],
+        category: '',
       })
     }
 

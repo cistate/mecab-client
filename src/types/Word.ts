@@ -1,9 +1,7 @@
-import { Lexical } from './Lexical'
-
 /**
  * Word type.
  */
-export type Word = {
+export interface Word {
   /**
    * 表層系
    */
@@ -12,22 +10,22 @@ export type Word = {
   /**
    * 品詞
    */
-  lexical: Lexical
+  pos: string
 
   /**
    * 品詞細分類1
    */
-  compound1: string
+  // compound1: string
 
   /**
    * 品詞細分類2
    */
-  compound2: string
+  // compound2: string
 
   /**
    * 品詞細分類3
    */
-  compound3: string
+  // compound3: string
 
   /**
    * 活用型
@@ -52,16 +50,20 @@ export type Word = {
   /**
    * 発音
    */
-  pronunciation?: string
+  pronunciation: string
 
   /**
    * 形態素種類
    * %s 形態素種類 (0: 通常, 1: 未知語, 2:文頭, 3:文末)
    */
-  type?: string
+  type: string
 
   /**
    * %c 単語生起コスト
    */
-  cost?: number
+  cost: string
+
+  category: string
+
+  [key: string]: string
 }
